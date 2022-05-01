@@ -1,16 +1,6 @@
-input.onButtonPressed(Button.A, function () {
-    if (engine == false) {
-        radio.sendValue("engine", 1)
-        engine = true
-    } else if (engine == true) {
-        radio.sendValue("engine", 0)
-        engine = false
-    }
-})
-let engine = false
 radio.setGroup(147)
 basic.showIcon(IconNames.Target)
-engine = false
+let engine = false
 loops.everyInterval(500, function () {
     if (engine == false) {
         basic.showIcon(IconNames.No)
@@ -26,4 +16,15 @@ loops.everyInterval(500, function () {
 basic.forever(function () {
     radio.sendValue("mgX", input.acceleration(Dimension.X))
     radio.sendValue("mgY", input.acceleration(Dimension.Y))
+})
+basic.forever(function () {
+    if (input.buttonIsPressed(Button.A) || input.buttonIsPressed(Button.B)) {
+        if (engine == false) {
+            radio.sendValue("engine", 1)
+            engine = true
+        } else if (engine == true) {
+            radio.sendValue("engine", 0)
+            engine = false
+        }
+    }
 })
